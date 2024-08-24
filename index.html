@@ -67,6 +67,41 @@
 	</style>
 	<script defer src="https://cloud.umami.is/script.js"
 		data-website-id="e2c92e5c-c7ff-4673-ac30-a4f1e773cd6c"></script>
+
+
+		<script>
+			function animateCounter(element, start, end, duration) {
+				let startTime = null;
+		
+				function count(currentTime) {
+					if (!startTime) startTime = currentTime;
+					const progress = currentTime - startTime;
+					const value = start + (end - start) * (progress / duration);
+		
+					element.innerText = value.toFixed(1);
+		
+					if (progress < duration) {
+						requestAnimationFrame(count);
+					} else {
+						element.innerText = end.toFixed(1);  // Ensure it ends exactly at `1.5`
+					}
+				}
+		
+				requestAnimationFrame(count);
+			}
+		
+			document.addEventListener("DOMContentLoaded", function() {
+				const counterElement = document.getElementById('experience-counter');
+				const from = 0;
+				const to = 1.5;
+				const duration = 2000;  // 2 seconds
+		
+				animateCounter(counterElement, from, to, duration);
+			});
+		</script>
+		
+
+
 </head>
 
 <body>
@@ -226,8 +261,7 @@
 						<div class="row">
 							<div class="col-md-3 text-center animate-box">
 								<a href="#Experience">
-									<span class="colorlib-counter js-counter" data-from="0" data-to="2"
-										data-speed="1000" data-refresh-interval="50"></span>
+									<span id="experience-counter" class="colorlib-counter">0</span>
 									<span class="colorlib-counter-label">Years of Experience</span>
 								</a>
 							</div>
@@ -1596,6 +1630,7 @@
 
 	<!-- MAIN JS -->
 	<script src="js/main.js"></script>
+
 
 </body>
 
